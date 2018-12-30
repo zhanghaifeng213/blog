@@ -1,0 +1,14 @@
+2018-10-22T21:00:57.304+0800 I CONTROL  [initandlisten] MongoDB starting : pid=19867 port=52017 dbpath=/root/node/koa2/database/db/ 64-bit host=izbp1aivbpv57lpomtn42fz
+2018-10-22T21:00:57.304+0800 I CONTROL  [initandlisten] db version v3.6.7
+2018-10-22T21:00:57.304+0800 I CONTROL  [initandlisten] git version: 2628472127e9f1826e02c665c1d93880a204075e
+2018-10-22T21:00:57.304+0800 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1e-fips 11 Feb 2013
+2018-10-22T21:00:57.304+0800 I CONTROL  [initandlisten] allocator: tcmalloc
+2018-10-22T21:00:57.304+0800 I CONTROL  [initandlisten] modules: none
+2018-10-22T21:00:57.304+0800 I CONTROL  [initandlisten] build environment:
+2018-10-22T21:00:57.304+0800 I CONTROL  [initandlisten]     distmod: rhel70
+2018-10-22T21:00:57.304+0800 I CONTROL  [initandlisten]     distarch: x86_64
+2018-10-22T21:00:57.304+0800 I CONTROL  [initandlisten]     target_arch: x86_64
+2018-10-22T21:00:57.304+0800 I CONTROL  [initandlisten] options: { net: { port: 52017 }, storage: { dbPath: "/root/node/koa2/database/db/" }, systemLog: { destination: "file", path: "/root/node/koa2/database/mongodb.log" } }
+2018-10-22T21:00:57.304+0800 I STORAGE  [initandlisten] exception in initAndListen: DBPathInUse: Unable to lock the lock file: /root/node/koa2/database/db/mongod.lock (Resource temporarily unavailable). Another mongod instance is already running on the /root/node/koa2/database/db/ directory, terminating
+2018-10-22T21:00:57.304+0800 I CONTROL  [initandlisten] now exiting
+2018-10-22T21:00:57.304+0800 I CONTROL  [initandlisten] shutting down with code:100

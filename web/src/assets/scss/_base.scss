@@ -1,0 +1,21 @@
+html,
+body {
+  height: 100%;
+}
+.clearfix:after {
+  content: '.';
+  display: block;
+  height: 0;
+  visibility: hidden;
+  clear: both;
+}
+.clearfix {
+  *zoom: 1;
+}
+.placeholder {
+  display: inline-block;
+  width: 0;
+  font-size: 0;
+  height: 100%;
+  vertical-align: middle;
+}
