@@ -61,6 +61,11 @@ export default {
           this.activeName = "logout";
           this.$refs.loginAndOut.init();
           break;
+        case "9":
+          this.$router.push({
+            name: "persional"
+          });
+          break;
         case "10-1":
           this.handleLogOut().then(res => {
             console.log(res);

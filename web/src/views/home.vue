@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="header"><el-button type="primary">发表文章</el-button></div>
+    <div class="header"><el-button type="primary" @click="publishArticle">发表文章</el-button></div>
     <div class="content">
       <el-row :gutter="20">
         <el-col :span="18">
@@ -82,6 +82,11 @@ export default {
     goArticleDetail(item) {
       this.$router.push({
         name: "article-detail"
+      });
+    },
+    publishArticle() {
+      this.$router.push({
+        name: "publish-article"
       });
     }
   }
