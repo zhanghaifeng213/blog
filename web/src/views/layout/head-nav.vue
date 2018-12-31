@@ -48,6 +48,11 @@ export default {
     ...mapActions(["handleLogOut"]),
     handleSelect(key, keyPath) {
       switch (key) {
+        case "1":
+          this.$router.push({
+            name: "home"
+          });
+          break;
         case "7":
           this.activeName = "login";
           this.$refs.loginAndOut.init();
@@ -55,6 +60,11 @@ export default {
         case "8":
           this.activeName = "logout";
           this.$refs.loginAndOut.init();
+          break;
+        case "9":
+          this.$router.push({
+            name: "persional"
+          });
           break;
         case "10-1":
           this.handleLogOut().then(res => {

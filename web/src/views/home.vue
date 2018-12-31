@@ -1,24 +1,24 @@
 <template>
   <div class="home">
-    <div class="header"><el-button type="primary">发表文章</el-button></div>
+    <div class="header"><el-button type="primary" @click="publishArticle">发表文章</el-button></div>
     <div class="content">
       <el-row :gutter="20">
         <el-col :span="18">
           <div class="grid-content bg-white">
             <ul class="article-list">
-              <li v-for="item in 4" :key="item">
+              <li v-for="item in articleList" :key="item._id">
                 <a class="list-face">
-                  <img src="../assets/logo.png" alt="" width="45" height="45">
+                  <img :src="item.author.avatar" alt="" width="45" height="45">
                 </a>
                 <h2>
-                  <el-tag size="mini" color="#FF5722">vue</el-tag>
-                  <a class="articlt-title ellipsis" href="/article/5b9e5c3cdec9bc84f0549f7b">dsds</a>
+                  <el-tag size="mini" color="#FF5722">{{item.tips}}</el-tag>
+                  <a class="articlt-title ellipsis" @click="goArticleDetail(item)">{{item.title}}</a>
                 </h2>
                 <div class="list-info">
-                  <a>aaa</a>
-                  <span>2018-9-16 21:35:56</span>
+                  <a>{{item.author.username}}</a>
+                  <span>{{item.updatedAt}}</span>
                   <span class="list-reply">
-                    <i class="el-icon-document" title="评论"></i>4
+                    <i class="el-icon-document" title="评论"></i>{{item.commentNum}}
                   </span>
                 </div>
               </li>
@@ -26,7 +26,7 @@
             <el-pagination
               background
               layout="prev, pager, next"
-              :total="1000">
+              :total="totalPage">
             </el-pagination>
           </div>
         </el-col>
@@ -52,7 +52,11 @@ import { mapState, mapActions } from "vuex";
 export default {
   name: "home",
   data() {
-    return {};
+    return {
+      articleList: [],
+      totalPage: 0,
+      page: 1
+    };
   },
   created() {
     this.getArticleList();
@@ -64,8 +68,25 @@ export default {
   },
   methods: {
     getArticleList() {
-      getArticleList(this.uid).then(res => {
-        console.log(res);
+      getArticleList(this.page).then(res => {
+        if (res.data && res.data.artList.length > 0) {
+          this.totalPage = res.data.maxNum;
+          this.articleList = res.data.artList;
+          this.articleList.map(item => {
+            item.author.avatar =
+              process.env.API_ROOT + item.author.avatar.slice(1);
+          });
+        }
+      });
+    },
+    goArticleDetail(item) {
+      this.$router.push({
+        name: "article-detail"
+      });
+    },
+    publishArticle() {
+      this.$router.push({
+        name: "publish-article"
       });
     }
   }

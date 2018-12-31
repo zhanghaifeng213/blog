@@ -15,18 +15,18 @@ const _import = require('./import-' + process.env.NODE_ENV)
 
 // 全局路由(无需嵌套上左右整体布局)
 const globalRoutes = [
-  // {
-  //   path: '/404',
-  //   component: _import('common/404'),
-  //   name: '404',
-  //   meta: { title: '404未找到' }
-  // },
-  // {
-  //   path: '/login',
-  //   component: _import('common/login/login'),
-  //   name: 'login',
-  //   meta: { title: '登录' }
-  // }
+  {
+    path: '/404',
+    component: _import('404'),
+    name: '404',
+    meta: { title: '404未找到' }
+  },
+  {
+    path: '/persional',
+    component: _import('persional'),
+    name: 'persional',
+    meta: { title: 'persional' }
+  }
 ]
 
 // 主入口路由(需嵌套上左右整体布局) layou1
@@ -42,6 +42,16 @@ const mainRoutes = {
       component: _import('home'),
       name: 'home',
       meta: { title: '首页' }
+    },
+    {
+      path: '/article-detail',
+      component: _import('article-detail'),
+      name: 'article-detail'
+    },
+    {
+      path: '/publish-article',
+      component: _import('publish-article'),
+      name: 'publish-article'
     },
   ],
   // beforeEnter(to, from, next) {
