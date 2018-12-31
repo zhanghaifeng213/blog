@@ -15,7 +15,7 @@
         <el-menu-item index="9" >个人中心</el-menu-item>
         <el-submenu index="10">
           <template slot="title">
-            <img src="../../assets/logo.png" width="40" height="40"><span>{{username}}</span>
+            <img :src="avatorImgPath" width="40" height="40"><span>{{username}}</span>
           </template>
           <el-menu-item index="10-1">退了</el-menu-item>
         </el-submenu>
@@ -41,7 +41,8 @@ export default {
   },
   computed: {
     ...mapState({
-      username: state => state.user.username
+      username: state => state.user.username,
+      avatorImgPath: state => state.user.avatorImgPath
     })
   },
   methods: {

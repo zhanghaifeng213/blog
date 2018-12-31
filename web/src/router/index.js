@@ -21,12 +21,6 @@ const globalRoutes = [
     name: '404',
     meta: { title: '404未找到' }
   },
-  {
-    path: '/persional',
-    component: _import('persional'),
-    name: 'persional',
-    meta: { title: 'persional' }
-  }
 ]
 
 // 主入口路由(需嵌套上左右整体布局) layou1
@@ -53,6 +47,12 @@ const mainRoutes = {
       component: _import('publish-article'),
       name: 'publish-article'
     },
+    {
+      path: '/persional',
+      component: _import('persional'),
+      name: 'persional',
+      meta: { title: 'persional' }
+    }
   ],
   // beforeEnter(to, from, next) {
   //   let token = Vue.cookie.get('token')
