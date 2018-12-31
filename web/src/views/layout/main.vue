@@ -8,7 +8,7 @@
 <script>
 import HeadNav from "./head-nav";
 export default {
-  name: "HelloWorld",
+  name: "mainContent",
   data() {
     return {};
   },

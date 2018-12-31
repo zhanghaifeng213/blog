@@ -24,8 +24,10 @@
               </li>
             </ul>
             <el-pagination
+            @current-change="currentChange"
               background
               layout="prev, pager, next"
+              :page-size="pageSize"
               :total="totalPage">
             </el-pagination>
           </div>
@@ -55,7 +57,8 @@ export default {
     return {
       articleList: [],
       totalPage: 0,
-      page: 1
+      page: 1,
+      pageSize: 2
     };
   },
   created() {
@@ -88,6 +91,10 @@ export default {
       this.$router.push({
         name: "publish-article"
       });
+    },
+    currentChange(val) {
+      this.page = val;
+      this.getArticleList();
     }
   }
 };
