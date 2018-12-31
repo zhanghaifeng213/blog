@@ -131,6 +131,7 @@ export default {
                   type: "success"
                 });
                 this.dialogVisible = false;
+                this.$router.push({ name: "home" });
               })
               .catch(err => {
                 this.$message({

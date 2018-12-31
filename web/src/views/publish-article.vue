@@ -37,6 +37,7 @@
 // tips,
 // title,
 // content: layedit.getContent(index)
+import { mapState } from "vuex";
 import Tinymce from "@/components/Tinymce";
 import { addArticle } from "@/api/article.js";
 export default {
@@ -77,24 +78,49 @@ export default {
   components: {
     Tinymce
   },
+  computed: {
+    ...mapState({
+      uid: state => state.user.uid
+    })
+  },
   methods: {
     submit(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          if (this.form.content != "") {
-            addArticle(this.form);
+      if (this.uid) {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            if (this.form.content != "") {
+              addArticle(this.form)
+                .then(res => {
+                  this.$message({
+                    message: res.data.msg,
+                    type: "success"
+                  });
+                  this.$router.push({ name: "home" });
+                })
+                .catch(err => {
+                  console.log(err);
+                  this.$message({
+                    message: "系统有bug",
+                    type: "warning"
+                  });
+                });
+            } else {
+              this.$message({
+                message: "请编辑文章内容",
+                type: "warning"
+              });
+            }
           } else {
-            this.$message({
-              message: "请编辑文章内容",
-              type: "warning"
-            });
+            console.log("error submit!!");
+            return false;
           }
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+        });
+      } else {
+        this.$message({
+          message: "请先登录",
+          type: "warning"
+        });
+      }
     }
   }
 };
