@@ -8,6 +8,7 @@ import Cookies from 'js-cookie'
 export function clearLoginInfo() {
   // Vue.cookie.delete('token')
   Cookies.remove('username')
+  Cookies.remove('uid')
   // store.commit('resetStore')
 }
 

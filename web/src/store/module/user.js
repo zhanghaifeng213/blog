@@ -6,7 +6,7 @@ import { getUsername, setUser, clearLoginInfo, getUid } from '@/libs/utils'
 export default {
   state: { username: getUsername(), avatorImgPath: '', uid: getUid(), role: '' },
   mutations: {
-    setAvator(state, avatorPath) {
+    setAvatar(state, avatorPath) {
       state.avatorImgPath = process.env.API_ROOT + avatorPath.slice(1)
     },
     setRole(state, role) {
@@ -15,6 +15,9 @@ export default {
     setUsername(state, username) {
       state.username = username
       setUser(username)
+    },
+    setUid(state, uid) {
+      state.uid = uid
     }
   },
   getters: {
@@ -45,6 +48,9 @@ export default {
         logout().then(() => {
           clearLoginInfo()
           commit('setUsername', '')
+          commit('setUid', '')
+          commit('setRole', '')
+          commit('setAvatar', '')
           resolve(true)
         }).catch(err => {
           reject(err)
@@ -57,8 +63,9 @@ export default {
     },
     // 获取用户相关信息
     handleUserInfo({ commit }, data) {
-      commit('setAvator', data.avatar)
+      commit('setAvatar', data.avatar)
       commit('setRole', data.role)
+      commit('setUid', data.uid)
     },
   }
 }

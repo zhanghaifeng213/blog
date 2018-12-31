@@ -49,7 +49,7 @@
 
 <script>
 import { getArticleList } from "@/api/article";
-import { mapState, mapActions } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "home",
@@ -64,11 +64,6 @@ export default {
   },
   created() {
     this.getArticleList();
-  },
-  computed: {
-    ...mapState({
-      uid: state => state.user.uid
-    })
   },
   methods: {
     ...mapActions(["handleUserInfo"]),
