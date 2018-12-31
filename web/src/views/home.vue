@@ -58,7 +58,8 @@ export default {
       articleList: [],
       totalPage: 0,
       page: 1,
-      pageSize: 2
+      pageSize: 2,
+      hasAvatar: false
     };
   },
   created() {
@@ -70,6 +71,7 @@ export default {
     })
   },
   methods: {
+    ...mapActions(["handleUserInfo"]),
     getArticleList() {
       getArticleList(this.page).then(res => {
         if (res.data && res.data.artList.length > 0) {
@@ -79,6 +81,12 @@ export default {
             item.author.avatar =
               process.env.API_ROOT + item.author.avatar.slice(1);
           });
+        }
+        if (res.data && Object.keys(res.data.session).length > 0) {
+          if (!this.hasAvatar) {
+            const info = res.data.session;
+            this.handleUserInfo(info);
+          }
         }
       });
     },
