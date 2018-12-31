@@ -5,3 +5,11 @@ export const getArticleList = id => {
     method: 'get'
   })
 }
+
+export const addArticle=(data)=>{
+  return http({
+    url: http.adornUrl('article'),
+    method: 'post',
+    data: data
+  })
+}
