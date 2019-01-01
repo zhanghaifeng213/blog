@@ -58,7 +58,7 @@ export default {
       articleList: [],
       totalPage: 0,
       page: 1,
-      pageSize: 2,
+      pageSize: 5,
       hasAvatar: false
     };
   },
