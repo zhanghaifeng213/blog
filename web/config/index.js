@@ -12,7 +12,7 @@ module.exports = {
     proxyTable: {
       '/proxyApi': {
         // 服务器代理
-        target: 'http://localhost:3000/',
+        target: 'http://localhost:3001/',
         changeOrigin: true,
         pathRewrite: {
           '^/proxyApi': '/'
