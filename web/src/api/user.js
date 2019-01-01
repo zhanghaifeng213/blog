@@ -26,7 +26,7 @@ export const info = (data) => {
 
 export const logout = () => {
   return http({
-    url: http.adornUrl('/user/logout'),
+    url: http.adornUrl('user/logout'),
     method: 'get',
   })
 }
