@@ -13,3 +13,18 @@ export const addArticle=(data)=>{
     data: data
   })
 }
+
+export const getCommentList = id => {
+  return http({
+    url: http.adornUrl('/page/' + id),
+    method: 'get'
+  })
+}
+
+export const addComment = (data)=>{
+  return http({
+    url: http.adornUrl('comment'),
+    method: 'post',
+    data: data
+  })
+}
