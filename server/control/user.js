@@ -165,18 +165,19 @@ exports.keepLog = async (ctx, next) => {
 // 确定用户状态， 保持用户的状态
 exports.info = async (ctx) => {
   if (ctx.cookies.get('username') === ctx.session.username) {
-    // const info = {
-    //   username: ctx.session.username,
-    //   uid: ctx.session.uid
-    // }
-    // let uid = ctx.cookies.get('uid')
-    // const avatar = await User.findById(uid)
-    //   .then(data => {
-    //     info.avatar = data.avatar
-    //   })
+    const info = {
+      username: ctx.session.username,
+      uid: ctx.session.uid,
+      role: ctx.session.role
+    }
+    let uid = ctx.cookies.get('uid')
+    await User.findById(uid)
+      .then(data => {
+        info.avatar = data.avatar
+      })
     await ctx.send({
       status: 'success',
-      data: ctx.session
+      data: info
     })
   } else {
     await ctx.send({

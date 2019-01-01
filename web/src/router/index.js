@@ -53,7 +53,30 @@ const mainRoutes = {
       path: '/persional',
       component: _import('persional'),
       name: 'persional',
-      meta: { title: 'persional' }
+      meta: { title: 'persional' },
+      redirect: { name: 'user' },
+      children: [
+        {
+          path: '/user',
+          component: _import('persional-detail/user'),
+          name: 'user'
+        },
+        {
+          path: '/article',
+          component: _import('persional-detail/article'),
+          name: 'article'
+        },
+        {
+          path: '/comment',
+          component: _import('persional-detail/comment'),
+          name: 'comment'
+        },
+        {
+          path: '/userface',
+          component: _import('persional-detail/userface'),
+          name: 'userface'
+        },
+      ]
     }
   ],
   beforeEnter(to, from, next) {
