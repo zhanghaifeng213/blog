@@ -6,13 +6,13 @@
         <el-col :span="18">
           <div class="grid-content bg-white">
             <ul class="article-list">
-              <li v-for="item in articleList" :key="item._id">
+              <li v-for="item in articleList" :key="item._id" @click="goArticleDetail(item)">
                 <a class="list-face">
                   <img :src="item.author.avatar" alt="" width="45" height="45">
                 </a>
                 <h2>
                   <el-tag size="mini" color="#FF5722">{{item.tips}}</el-tag>
-                  <a class="articlt-title ellipsis" @click="goArticleDetail(item)">{{item.title}}</a>
+                  <a class="articlt-title ellipsis">{{item.title}}</a>
                 </h2>
                 <div class="list-info">
                   <a>{{item.author.username}}</a>
@@ -87,7 +87,8 @@ export default {
     },
     goArticleDetail(item) {
       this.$router.push({
-        name: "article-detail"
+        name: "article-detail",
+        params: item
       });
     },
     publishArticle() {

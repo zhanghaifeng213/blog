@@ -1,6 +1,7 @@
 import {
   login,
   logout,
+  info
 } from '@/api/user'
 import { getUsername, setUser, clearLoginInfo, getUid } from '@/libs/utils'
 export default {
@@ -63,9 +64,18 @@ export default {
     },
     // 获取用户相关信息
     handleUserInfo({ commit }, data) {
-      commit('setAvatar', data.avatar)
-      commit('setRole', data.role)
-      commit('setUid', data.uid)
+      let username = getUsername()
+      return new Promise((resolve, reject) => {
+        info(username).then((res) => {
+          const data = res.data.data
+          commit('setAvatar', data.avatar)
+          commit('setRole', data.role)
+          commit('setUid', data.uid)
+          resolve(data)
+        }).catch((err) => {
+          reject(err)
+        })
+      })
     },
   }
 }

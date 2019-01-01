@@ -16,6 +16,14 @@ export const login = (data) => {
   })
 }
 
+export const info = (data) => {
+  return http({
+    url: http.adornUrl('user/info'),
+    method: 'get',
+    data: data
+  })
+}
+
 export const logout = () => {
   return http({
     url: http.adornUrl('/user/logout'),
