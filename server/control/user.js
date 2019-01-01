@@ -162,6 +162,30 @@ exports.keepLog = async (ctx, next) => {
   await next()
 }
 
+// 确定用户状态， 保持用户的状态
+exports.info = async (ctx) => {
+  if (ctx.cookies.get('username') === ctx.session.username) {
+    // const info = {
+    //   username: ctx.session.username,
+    //   uid: ctx.session.uid
+    // }
+    // let uid = ctx.cookies.get('uid')
+    // const avatar = await User.findById(uid)
+    //   .then(data => {
+    //     info.avatar = data.avatar
+    //   })
+    await ctx.send({
+      status: 'success',
+      data: ctx.session
+    })
+  } else {
+    await ctx.send({
+      status: 'fail',
+      data: '请重新登陆'
+    })
+  }
+}
+
 exports.logout = async ctx => {
   ctx.session = null
   ctx.cookies.set("username", null, {
