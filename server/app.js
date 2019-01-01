@@ -35,7 +35,7 @@ app.use(views(join(__dirname, "views"), {
 }))
 // 注册路由信息
 app.use(router.routes()).use(router.allowedMethods())
-app.listen(3000, () => {
+app.listen(3001, () => {
   console.log("项目启动成功，监听在3000端口")
 })
 
