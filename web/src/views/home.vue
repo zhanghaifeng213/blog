@@ -88,11 +88,7 @@ export default {
     goArticleDetail(item) {
       this.$router.push({
         name: "article-detail",
-<<<<<<< HEAD
         params:item
-=======
-        params: item
->>>>>>> dev
       });
     },
     publishArticle() {
