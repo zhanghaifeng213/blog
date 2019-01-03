@@ -1,18 +1,24 @@
 import {
   login,
   logout,
-  getUserInfo,
+  info
 } from '@/api/user'
 import { getUsername, setUser, clearLoginInfo, getUid } from '@/libs/utils'
 export default {
-  state: { username: getUsername(), avatorImgPath: '', uid: getUid() },
+  state: { username: getUsername(), avatorImgPath: '', uid: getUid(), role: '' },
   mutations: {
-    setAvator(state, avatorPath) {
-      state.avatorImgPath = avatorPath
+    setAvatar(state, avatorPath) {
+      state.avatorImgPath = process.env.API_ROOT + avatorPath.slice(1)
+    },
+    setRole(state, role) {
+      state.role = role
     },
     setUsername(state, username) {
       state.username = username
       setUser(username)
+    },
+    setUid(state, uid) {
+      state.uid = uid
     }
   },
   getters: {
@@ -43,6 +49,9 @@ export default {
         logout().then(() => {
           clearLoginInfo()
           commit('setUsername', '')
+          commit('setUid', '')
+          commit('setRole', '')
+          commit('setAvatar', '')
           resolve(true)
         }).catch(err => {
           reject(err)
@@ -54,23 +63,18 @@ export default {
       })
     },
     // 获取用户相关信息
-    getUserInfo({ state, commit }) {
+    handleUserInfo({ commit }, data) {
+      let username = getUsername()
       return new Promise((resolve, reject) => {
-        try {
-          getUserInfo(state.token).then(res => {
-            const data = res.data
-            commit('setAvator', data.avator)
-            commit('setUserName', data.name)
-            commit('setUserId', data.user_id)
-            commit('setAccess', data.access)
-            commit('setHasGetInfo', true)
-            resolve(data)
-          }).catch(err => {
-            reject(err)
-          })
-        } catch (error) {
-          reject(error)
-        }
+        info(username).then((res) => {
+          const data = res.data.data
+          commit('setAvatar', data.avatar)
+          commit('setRole', data.role)
+          commit('setUid', data.uid)
+          resolve(data)
+        }).catch((err) => {
+          reject(err)
+        })
       })
     },
   }

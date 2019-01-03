@@ -260,8 +260,8 @@ exports.getList = async ctx => {
   const artList = await Article
     .find()
     .sort('-created')
-    .skip(2 * page)
-    .limit(2)
+    .skip(5 * page)
+    .limit(5)
     //拿到了5条数据
     .populate({
       path: "author",

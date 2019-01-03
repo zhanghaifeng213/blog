@@ -28,6 +28,8 @@ router.post("/user/reg", user.reg)
 router.post("/user/login", user.login)
 // 用户退出
 router.get("/user/logout", user.logout)
+// 获取用户信息
+router.get("/user/info", user.info)
 // 文章的发表页面
 router.get("/article", user.keepLog, article.addPage)
 // 文章添加

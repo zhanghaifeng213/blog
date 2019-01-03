@@ -6,13 +6,13 @@
         <el-col :span="18">
           <div class="grid-content bg-white">
             <ul class="article-list">
-              <li v-for="item in articleList" :key="item._id">
+              <li v-for="item in articleList" :key="item._id" @click="goArticleDetail(item)">
                 <a class="list-face">
                   <img :src="item.author.avatar" alt="" width="45" height="45">
                 </a>
                 <h2>
                   <el-tag size="mini" color="#FF5722">{{item.tips}}</el-tag>
-                  <a class="articlt-title ellipsis" @click="goArticleDetail(item)">{{item.title}}</a>
+                  <a class="articlt-title ellipsis">{{item.title}}</a>
                 </h2>
                 <div class="list-info">
                   <a>{{item.author.username}}</a>
@@ -49,7 +49,7 @@
 
 <script>
 import { getArticleList } from "@/api/article";
-import { mapState, mapActions } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "home",
@@ -58,18 +58,15 @@ export default {
       articleList: [],
       totalPage: 0,
       page: 1,
-      pageSize: 2
+      pageSize: 5,
+      hasAvatar: false
     };
   },
   created() {
     this.getArticleList();
   },
-  computed: {
-    ...mapState({
-      uid: state => state.user.uid
-    })
-  },
   methods: {
+    ...mapActions(["handleUserInfo"]),
     getArticleList() {
       getArticleList(this.page).then(res => {
         if (res.data && res.data.artList.length > 0) {
@@ -80,12 +77,22 @@ export default {
               process.env.API_ROOT + item.author.avatar.slice(1);
           });
         }
+        if (res.data && Object.keys(res.data.session).length > 0) {
+          if (!this.hasAvatar) {
+            const info = res.data.session;
+            this.handleUserInfo(info);
+          }
+        }
       });
     },
     goArticleDetail(item) {
       this.$router.push({
         name: "article-detail",
+<<<<<<< HEAD
         params:item
+=======
+        params: item
+>>>>>>> dev
       });
     },
     publishArticle() {

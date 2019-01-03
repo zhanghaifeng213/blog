@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { reg, login } from "@/api/user";
+import { reg, login, info } from "@/api/user";
 import { mapActions } from "vuex";
 export default {
   name: "login-and-out",
@@ -111,7 +111,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["handleLogin", "handleLogOut", "getUserInfo"]),
+    ...mapActions(["handleLogin", "handleLogOut", "handleUserInfo"]),
     init(index) {
       this.dialogVisible = true;
       this.$nextTick(() => {});
@@ -126,11 +126,14 @@ export default {
             const { username, password } = this.ruleForm1;
             this.handleLogin({ username, password })
               .then(res => {
-                this.$message({
-                  message: res,
-                  type: "success"
+                this.handleUserInfo().then(res => {
+                  this.$message({
+                    message: "登陆成功",
+                    type: "success"
+                  });
+                  this.dialogVisible = false;
+                  this.$router.push({ name: "home" });
                 });
-                this.dialogVisible = false;
               })
               .catch(err => {
                 this.$message({

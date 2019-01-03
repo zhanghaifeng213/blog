@@ -7,6 +7,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store'
+import Cookies from 'js-cookie'
+import { clearLoginInfo } from '@/libs/utils.js'
 
 Vue.use(Router)
 
@@ -21,12 +23,6 @@ const globalRoutes = [
     name: '404',
     meta: { title: '404未找到' }
   },
-  {
-    path: '/persional',
-    component: _import('persional'),
-    name: 'persional',
-    meta: { title: 'persional' }
-  }
 ]
 
 // 主入口路由(需嵌套上左右整体布局) layou1
@@ -53,31 +49,60 @@ const mainRoutes = {
       component: _import('publish-article'),
       name: 'publish-article'
     },
+    {
+      path: '/persional',
+      component: _import('persional'),
+      name: 'persional',
+      meta: { title: 'persional' },
+      redirect: { name: 'user' },
+      children: [
+        {
+          path: '/user',
+          component: _import('persional-detail/user'),
+          name: 'user'
+        },
+        {
+          path: '/article',
+          component: _import('persional-detail/article'),
+          name: 'article'
+        },
+        {
+          path: '/comment',
+          component: _import('persional-detail/comment'),
+          name: 'comment'
+        },
+        {
+          path: '/userface',
+          component: _import('persional-detail/userface'),
+          name: 'userface'
+        },
+      ]
+    }
   ],
-  // beforeEnter(to, from, next) {
-  //   let token = Vue.cookie.get('token')
-  //   if (!token || !/\S/.test(token)) {
-  //     clearLoginInfo()
-  //     next()
-  //   } else {
-  //     if (store.state.user.hasGetInfo) {
-  //       console.log('hasGetInfo')
-  //       next()
-  //     } else {
-  //       console.log('donthasGetInfo')
-  //       store
-  //         .dispatch('getUserInfo')
-  //         .then(() => {
-  //           // 拉取用户信息，通过用户权限和跳转的页面的name来判断是否有权限访问;access必须是一个数组，如：['super_admin'] ['super_admin', 'admin']
-  //           next()
-  //         })
-  //         .catch(() => {
-  //           clearLoginInfo()
-  //           next()
-  //         })
-  //     }
-  //   }
-  // }
+  beforeEnter(to, from, next) {
+    let username = Cookies.get('username')
+    if (!username || !/\S/.test(username)) {
+      clearLoginInfo()
+      next()
+    } else {
+      if (store.state.user.roleId) {
+        console.log('hasGetInfo')
+        next()
+      } else {
+        console.log('donthasGetInfo')
+        store
+          .dispatch('handleUserInfo')
+          .then(() => {
+            // 拉取用户信息，通过用户权限和跳转的页面的name来判断是否有权限访问;access必须是一个数组，如：['super_admin'] ['super_admin', 'admin']
+            next()
+          })
+          .catch(() => {
+            clearLoginInfo()
+            next()
+          })
+      }
+    }
+  }
 }
 
 const router = new Router({
