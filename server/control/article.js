@@ -190,15 +190,14 @@
 // //   }
 // // }
 
-
 const Article = require('../Models/article')
 const User = require('../Models/user')
 const Comment = require('../Models/comment')
 
 // 返回文章发表页
-exports.addPage = async (ctx) => {
-  await ctx.render("add-article", {
-    title: "文章发表页",
+exports.addPage = async ctx => {
+  await ctx.render('add-article', {
+    title: '文章发表页',
     session: ctx.session
   })
 }
@@ -207,10 +206,10 @@ exports.addPage = async (ctx) => {
 exports.add = async ctx => {
   if (ctx.session.isNew) {
     // true 就没登录   就不需要就查询数据库
-    return ctx.body = {
-      msg: "用户未登录",
+    return (ctx.body = {
+      msg: '用户未登录',
       status: 0
-    }
+    })
   }
 
   // 用户登录的情况：
@@ -220,14 +219,13 @@ exports.add = async ctx => {
   data.author = ctx.session.uid
   data.commentNum = 0
 
-
   await new Promise((resolve, reject) => {
     new Article(data).save((err, data) => {
       if (err) return reject(err)
       // 更新用户文章计数
       User.update({ _id: data.author }, { $inc: { articleNum: 1 } }, err => {
         if (err) return console.log(err)
-        console.log("文章保存成功")
+        console.log('文章保存成功')
       })
 
       console.log(data.author)
@@ -236,13 +234,13 @@ exports.add = async ctx => {
   })
     .then(data => {
       ctx.body = {
-        msg: "发表成功",
+        msg: '发表成功',
         status: 1
       }
     })
     .catch(err => {
       ctx.body = {
-        msg: "发表失败",
+        msg: '发表失败',
         status: 0
       }
     })
@@ -255,25 +253,21 @@ exports.getList = async ctx => {
   let page = ctx.params.id || 1
   page--
 
-  const maxNum = await Article.estimatedDocumentCount((err, num) => err ? console.log(err) : num)
+  const maxNum = await Article.estimatedDocumentCount((err, num) =>
+    err ? console.log(err) : num
+  )
 
-  const artList = await Article
-    .find()
+  const artList = await Article.find()
     .sort('-created')
     .skip(5 * page)
     .limit(5)
     //拿到了5条数据
     .populate({
-      path: "author",
+      path: 'author',
       select: '_id username avatar'
     }) // mongoose 用于连表查询
     .then(data => data)
     .catch(err => console.log(err))
-
-
-
-
-
 
   // await ctx.render("index", {
   //   session: ctx.session,
@@ -283,9 +277,9 @@ exports.getList = async ctx => {
   // })
   await ctx.send({
     session: ctx.session,
-    title: "实战博客首页",
+    title: '实战博客首页',
     artList,
-    maxNum,
+    maxNum
   })
   // await ctx.render("index", {})
 }
@@ -296,27 +290,21 @@ exports.details = async ctx => {
   const _id = ctx.params.id
 
   // 查找文章本身数据
-  const article = await Article
-    .findById(_id)
-    .populate("author", "username")
+  const article = await Article.findById(_id)
+    .populate('author', 'username')
     .then(data => data)
 
   // 查找跟当前文章关联的所有评论
 
-  const comment = await Comment
-    .find({ article: _id })
-    .sort("-created")
-    .populate("from", "username avatar")
+  const comment = await Comment.find({ article: _id })
+    .sort('-created')
+    .populate('from', 'username avatar')
     .then(data => data)
     .catch(err => {
       console.log(err)
     })
 
-
-
-
-
-  await ctx.render("article", {
+  await ctx.send({
     title: article.title,
     article,
     comment,
@@ -343,7 +331,7 @@ exports.del = async ctx => {
 
   let res = {
     state: 1,
-    message: "成功"
+    message: '成功'
   }
 
   await Article.findById(_id)

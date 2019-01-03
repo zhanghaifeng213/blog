@@ -95,10 +95,10 @@ const Comment = require('../Models/comment')
 exports.save = async ctx => {
   let message = {
     status: 0,
-    msg: "登录才能发表"
+    msg: '登录才能发表'
   }
   // 验证用户是否登录
-  if (ctx.session.isNew) return ctx.body = message
+  if (ctx.session.isNew) return (ctx.body = message)
 
   // 用户登录了。
   const data = ctx.request.body
@@ -116,14 +116,17 @@ exports.save = async ctx => {
       }
 
       // 更新当前文章的评论计数器
-      Article
-        .update({ _id: data.article }, { $inc: { commentNum: 1 } }, err => {
+      Article.updateMany(
+        { _id: data.article },
+        { $inc: { commentNum: 1 } },
+        err => {
           if (err) return console.log(err)
-          console.log("评论计数器更新成功")
-        })
+          console.log('评论计数器更新成功')
+        }
+      )
 
       // 更新用户的评论计数器
-      User.update({ _id: data.from }, { $inc: { commentNum: 1 } }, err => {
+      User.updateMany({ _id: data.from }, { $inc: { commentNum: 1 } }, err => {
         if (err) return console.log(err)
       })
     })
@@ -140,15 +143,13 @@ exports.save = async ctx => {
 exports.comlist = async ctx => {
   const uid = ctx.session.uid
 
-  const data = await Comment.find({ from: uid }).populate("article", "title")
-
+  const data = await Comment.find({ from: uid }).populate('article', 'title')
 
   ctx.body = {
     code: 0,
     count: data.length,
     data
   }
-
 }
 
 // 删除对应 id 的评论
@@ -159,7 +160,7 @@ exports.del = async ctx => {
 
   let res = {
     state: 1,
-    message: "成功"
+    message: '成功'
   }
 
   await Comment.findById(commentId)
@@ -172,4 +173,4 @@ exports.del = async ctx => {
     })
 
   ctx.body = res
-} 
+}
