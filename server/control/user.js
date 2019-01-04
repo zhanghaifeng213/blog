@@ -170,10 +170,16 @@ exports.info = async (ctx) => {
       uid: ctx.session.uid,
       role: ctx.session.role
     }
-    let uid = ctx.cookies.get('uid')
+    let uid = ctx.session.uid
     await User.findById(uid)
       .then(data => {
-        info.avatar = data.avatar
+        console.log(data)
+        if(data&&data.avatar){
+          info.avatar = data.avatar
+        }else{
+          info.avatar = '/avatar/default.jpg'
+        }
+        
       })
     await ctx.send({
       status: 'success',
@@ -202,7 +208,7 @@ exports.logout = async ctx => {
 exports.upload = async ctx => {
   const filename = ctx.req.file.filename
   let data = {}
-  await User.update({
+  await User.updateMany({
     _id: ctx.session.uid
   }, {
       $set: {
