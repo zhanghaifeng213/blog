@@ -88,7 +88,7 @@ export default {
     goArticleDetail(item) {
       this.$router.push({
         name: "article-detail",
-        params: item
+        params:item
       });
     },
     publishArticle() {
