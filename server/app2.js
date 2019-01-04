@@ -6,6 +6,7 @@ const logger = require("koa-logger")
 const body = require("koa-body")
 const { join } = require("path")
 const session = require("koa-session")
+const cors = require('koa2-cors');
 // 生成 Koa 实例
 const app = new Koa
 // 中间件
@@ -21,6 +22,16 @@ const CONFIG = {
   signed: true,
   rolling: true
 }
+app.use(cors({
+  origin: function(ctx) {
+    return 'http://116.62.147.91';
+  },
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+  maxAge: 5,
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'DELETE','OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept',"token"],
+}));
 // 注册日志模块
 app.use(logger())
 // 注册session
@@ -35,8 +46,8 @@ app.use(views(join(__dirname, "views"), {
 }))
 // 注册路由信息
 app.use(router.routes()).use(router.allowedMethods())
-app.listen(6000, () => {
-  console.log("项目启动成功，监听在6000端口")
+app.listen(3000, () => {
+  console.log("项目启动成功，监听在3000端口")
 })
 
 // 创建管理员用户 如果管理员用户已存在 则返回

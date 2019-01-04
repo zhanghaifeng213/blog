@@ -12,7 +12,7 @@ module.exports = {
     proxyTable: {
       '/proxyApi': {
         // 服务器代理
-        target: 'http://localhost:6000/',
+        target: 'http://localhost:3000/',
         changeOrigin: true,
         pathRewrite: {
           '^/proxyApi': '/'
@@ -50,7 +50,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps
