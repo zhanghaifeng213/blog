@@ -36,3 +36,6 @@ exports.index = async ctx => {
     await ctx.render('404', { title: '404' })
   }
 }
+exports.home=async ctx=>{
+  ctx.body=fs.readFileSync('index.html','utf8')
+}

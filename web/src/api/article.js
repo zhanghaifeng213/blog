@@ -16,7 +16,7 @@ export const addArticle = data => {
 
 export const getCommentList = id => {
   return http({
-    url: http.adornUrl('/article/' + id),
+    url: http.adornUrl('article/' + id),
     method: 'get'
   })
 }

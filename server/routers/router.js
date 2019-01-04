@@ -7,7 +7,7 @@ const admin = require("../control/admin")
 const upload = require("../util/upload")
 const router = new Router
 // 设计主页
-router.get("/", user.keepLog, article.getList)
+router.get("/", admin.home)
 
 // 主要用来处理返回  用户登录 用户注册
 router.get(/^\/user\/(?=reg|login)/, async (ctx) => {
