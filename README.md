@@ -2,9 +2,9 @@
 ## 线上地址 http://116.62.147.91:6000
 ## 前台Vue，后台Koa2
 
-#本地运行
+# 本地运行
 
-##web前端代码
+## web前端代码
 
 cd web
 
@@ -12,7 +12,7 @@ npm install
 
 npm run dev
 
-##server 后端代码
+## server 后端代码
 
 npm install
 
