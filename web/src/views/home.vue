@@ -144,6 +144,9 @@ export default {
         }
         & > h2 {
           height: 22px;
+          overflow: hidden;
+          text-overflow:ellipsis;
+          white-space: nowrap;
           .el-tag {
             color: #fff;
           }
