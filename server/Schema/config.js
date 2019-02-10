@@ -12,7 +12,7 @@ db.on('error', () => {
   console.log('连接数据库失败')
 })
 db.on('open', () => {
-  console.log('连接blogproject数据库成功')
+  console.log('连接blogproject2数据库成功')
 })
 module.exports = {
   db,

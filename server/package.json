@@ -12,6 +12,7 @@
     "koa-session": "^5.9.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.1.4",
+    "koa2-cors": "^2.0.6",
     "mongoose": "^5.2.12",
     "pug": "^2.0.3"
   },
