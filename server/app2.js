@@ -23,14 +23,14 @@ const CONFIG = {
   rolling: true
 }
 app.use(cors({
-  origin: function(ctx) {
-    return 'http://116.62.147.91';
+  origin: function (ctx) {
+    return 'http://47.104.160.105';
   },
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
   maxAge: 5,
   credentials: true,
-  allowMethods: ['GET', 'POST', 'DELETE','OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization', 'Accept',"token"],
+  allowMethods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept', "token"],
 }));
 // 注册日志模块
 app.use(logger())

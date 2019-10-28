@@ -1,0 +1,9 @@
+{
+  "name": "API文档",
+  "version": "0.0.1",
+  "description": "API文档",
+  "apidoc": {
+    "title": "blog",
+    "url": "http://116.62.147.91:3000/apidoc"
+  }
+}
