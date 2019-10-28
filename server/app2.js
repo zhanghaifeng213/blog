@@ -24,7 +24,7 @@ const CONFIG = {
 }
 app.use(cors({
   origin: function (ctx) {
-    return 'http://47.104.160.105';
+    return '*';
   },
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
   maxAge: 5,
